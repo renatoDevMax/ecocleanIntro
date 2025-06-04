@@ -1,103 +1,149 @@
+"use client";
 import Image from "next/image";
+import {
+  FaWhatsapp,
+  FaWifi,
+  FaShoppingCart,
+  FaGoogle,
+  FaInstagram,
+  FaFacebook,
+  FaEnvelope,
+  FaPhoneAlt,
+} from "react-icons/fa";
+import { MdPix } from "react-icons/md";
+import { useState } from "react";
+import QuadradosFundo from "./components/QuadradosFundo";
+import WifiModal from "./components/WifiModal";
+import PixModal from "./components/PixModal";
+import ImageCarousel from "./components/ImageCarousel";
 
 export default function Home() {
-  return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-sm/6 text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2 tracking-[-.01em]">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-[family-name:var(--font-geist-mono)] font-semibold">
-              src/app/page.tsx
-            </code>
-            .
-          </li>
-          <li className="tracking-[-.01em]">
-            Save and see your changes instantly.
-          </li>
-        </ol>
+  const [showWifiModal, setShowWifiModal] = useState(false);
+  const [showPixModal, setShowPixModal] = useState(false);
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
+  return (
+    <div className="relative min-h-screen flex items-center justify-center overflow-hidden">
+      {/* Fundo elegante com gradiente e ornamentos */}
+      <div className="absolute inset-0 -z-10 bg-gradient-to-br from-[#183263] via-[#183263] to-[#7EC13D] opacity-90 animate-gradient-move" />
+      <div className="absolute left-1/2 top-1/3 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-[#EDF3F9] rounded-full blur-3xl opacity-40 animate-pulse-slow" />
+      <QuadradosFundo />
+      <div className="relative z-10 w-full max-w-sm sm:max-w-sm max-w-xs bg-white/90 rounded-2xl shadow-2xl p-0 flex flex-col items-center border border-[#EDF3F9] backdrop-blur-md overflow-hidden mx-2 my-8">
+        {/* Cabeçalho com logo */}
+        <div className="w-full flex items-center justify-center bg-[#183263] p-6 sm:p-8">
+          <Image
+            src="/logotransp.png"
+            alt="Logo EcoClean"
+            width={256}
+            height={128}
+            className="object-contain drop-shadow-lg"
+            priority
+          />
+        </div>
+        {/* Informações de endereço e contato */}
+        <div className="w-full text-center text-[#183263] mb-2 px-6 mt-4 flex flex-col gap-5">
+          <div>
+            <div className="font-semibold text-base">
+              Av. Juscelino Kubitscheck de Oliveira, 3220 - Centro, Matinhos -
+              PR, 83260-000
+            </div>
+            <div className="flex justify-center mt-3">
+              <a
+                href="tel:+5541997943219"
+                className="bg-[#7EC13D] hover:bg-[#5ea32a] text-white font-semibold py-3 px-6 rounded-xl shadow-lg shadow-[#7EC13D]/30 transition-all duration-200 text-base flex items-center gap-3 justify-center w-full max-w-xs"
+              >
+                <FaPhoneAlt className="text-xl" /> (41) 99794-3219
+              </a>
+            </div>
+          </div>
+          <div>
+            <div className="font-semibold text-base">
+              R. Paranaguá, 3243, Matinhos - PR, 83260-000
+            </div>
+            <div className="flex justify-center mt-3">
+              <a
+                href="tel:+5541999880508"
+                className="bg-[#7EC13D] hover:bg-[#5ea32a] text-white font-semibold py-3 px-6 rounded-xl shadow-lg shadow-[#7EC13D]/30 transition-all duration-200 text-base flex items-center gap-3 justify-center w-full max-w-xs"
+              >
+                <FaPhoneAlt className="text-xl" /> (41) 99988-0508
+              </a>
+            </div>
+          </div>
+        </div>
+
+        {/* Carrossel de Imagens */}
+        <div className="w-full mt-4 -mx-6">
+          <ImageCarousel />
+        </div>
+
+        {/* Botões */}
+        <div className="w-full flex flex-col gap-4 justify-center mt-6 mb-10 px-6">
           <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:w-auto"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
+            href="https://api.whatsapp.com/send?phone=5541997943219"
             target="_blank"
             rel="noopener noreferrer"
+            className="w-full bg-[#7EC13D] hover:bg-[#5ea32a] text-white font-semibold py-3 px-6 rounded-xl shadow-lg shadow-[#7EC13D]/30 transition-all duration-200 text-base flex items-center gap-3 justify-center"
           >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
+            <FaWhatsapp className="text-xl" /> Adicionar WhatsApp
+          </a>
+          <button
+            onClick={() => setShowWifiModal(true)}
+            className="w-full bg-[#7EC13D] hover:bg-[#5ea32a] text-white font-semibold py-3 px-6 rounded-xl shadow-lg shadow-[#7EC13D]/30 transition-all duration-200 text-base flex items-center gap-3 justify-center"
+          >
+            <FaWifi className="text-xl" /> Adicionar Wifi
+          </button>
+          <button
+            onClick={() => setShowPixModal(true)}
+            className="w-full bg-[#7EC13D] hover:bg-[#5ea32a] text-white font-semibold py-3 px-6 rounded-xl shadow-lg shadow-[#7EC13D]/30 transition-all duration-200 text-base flex items-center gap-3 justify-center"
+          >
+            <MdPix className="text-xl" /> Chave Pix
+          </button>
+          <a
+            href="https://www.ecocleanmatinhos.com.br"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="w-full bg-[#7EC13D] hover:bg-[#5ea32a] text-white font-semibold py-3 px-6 rounded-xl shadow-lg shadow-[#7EC13D]/30 transition-all duration-200 text-base flex items-center gap-3 justify-center"
+          >
+            <FaShoppingCart className="text-xl" /> Compre Online
           </a>
           <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 w-full sm:w-auto md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
+            href="https://g.page/r/CT91MzwCa1_ZEAE/review"
             target="_blank"
             rel="noopener noreferrer"
+            className="w-full bg-[#183263] hover:bg-[#14244a] text-white font-semibold py-3 px-6 rounded-xl shadow-lg shadow-[#183263]/30 transition-all duration-200 text-base flex items-center gap-3 justify-center"
           >
-            Read our docs
+            <FaGoogle className="text-xl" /> Avalie no Google
+          </a>
+          <a
+            href="https://www.instagram.com/ecocleanmatinhos/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="w-full bg-[#183263] hover:bg-[#14244a] text-white font-semibold py-3 px-6 rounded-xl shadow-lg shadow-[#183263]/30 transition-all duration-200 text-base flex items-center gap-3 justify-center"
+          >
+            <FaInstagram className="text-xl" /> Siga no Instagram
+          </a>
+          <a
+            href="https://www.facebook.com/EcoCleanmatinhos/?locale=pt_BR"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="w-full bg-[#183263] hover:bg-[#14244a] text-white font-semibold py-3 px-6 rounded-xl shadow-lg shadow-[#183263]/30 transition-all duration-200 text-base flex items-center gap-3 justify-center"
+          >
+            <FaFacebook className="text-xl" /> Facebook
+          </a>
+          <a
+            href="mailto:ecocleanmatinhos@gmail.com"
+            className="w-full bg-[#183263] hover:bg-[#14244a] text-white font-semibold py-3 px-6 rounded-xl shadow-lg shadow-[#183263]/30 transition-all duration-200 text-base flex items-center gap-3 justify-center"
+          >
+            <FaEnvelope className="text-xl" /> Email para Contato
           </a>
         </div>
-      </main>
-      <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
+      </div>
+
+      {/* Modais */}
+      <WifiModal
+        isOpen={showWifiModal}
+        onClose={() => setShowWifiModal(false)}
+      />
+      <PixModal isOpen={showPixModal} onClose={() => setShowPixModal(false)} />
     </div>
   );
 }
